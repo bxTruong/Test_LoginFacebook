@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -17,6 +16,7 @@ import com.facebook.login.widget.LoginButton;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         tvUsername = findViewById(R.id.tvUsername);
         imgAvatar = findViewById(R.id.imgAvatar);
 
-        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
+        loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
 
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -102,5 +102,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         LoginManager.getInstance().logOut();
+    }
+
+    public void openSubActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, SubActivity.class);
+        startActivity(intent);
     }
 }
