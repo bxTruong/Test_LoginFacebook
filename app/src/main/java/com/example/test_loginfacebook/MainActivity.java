@@ -11,6 +11,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -21,6 +22,9 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,16 +44,13 @@ public class MainActivity extends AppCompatActivity {
         tvUsername = findViewById(R.id.tvUsername);
         imgAvatar = findViewById(R.id.imgAvatar);
 
-        loginButton.setReadPermissions("email,public_profile");
+        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
 
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                String imageURL = "https://graph.facebook.com/" + loginResult.getAccessToken().getUserId() + "/picture?return_ssl_resource=1";
-                Glide.with(MainActivity.this)
-                        .load(imageURL)
-                        .into(imgAvatar);
+                loadProfile();
             }
 
             @Override
@@ -71,15 +72,8 @@ public class MainActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
-        @Override
-        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-            loadProfile(currentAccessToken);
-        }
-    };
-
-    private void loadProfile(AccessToken accessToken) {
-        GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+    private void loadProfile() {
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
@@ -87,7 +81,11 @@ public class MainActivity extends AppCompatActivity {
                     String last_name = object.getString("last_name");
 
                     tvUsername.setText("Hello " + first_name + " " + last_name);
-
+                    String imageURL = "https://graph.facebook.com/" + object.getString(
+                            "id") + "/picture?return_ssl_resource=1";
+                    Glide.with(MainActivity.this)
+                            .load(imageURL)
+                            .into(imgAvatar);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -98,5 +96,11 @@ public class MainActivity extends AppCompatActivity {
         parameters.putString("fields", "first_name, last_name, id");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LoginManager.getInstance().logOut();
     }
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "253254859640",
+    "firebase_url": "https://testloginfacbook.firebaseio.com",
+    "project_id": "testloginfacbook",
+    "storage_bucket": "testloginfacbook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253254859640:android:85d3855d3b4acb54c9a68d",
+        "android_client_info": {
+          "package_name": "com.example.test_loginfacebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253254859640-df2l6npbcl9te3q7sfao4hb97n06td5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI5tyi-GMNpryTK9gdMZWtltB6lplbtGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253254859640-df2l6npbcl9te3q7sfao4hb97n06td5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
