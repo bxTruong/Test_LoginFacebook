@@ -9,10 +9,8 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -30,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private TextView tvUsername;
     private ImageView imgAvatar;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
