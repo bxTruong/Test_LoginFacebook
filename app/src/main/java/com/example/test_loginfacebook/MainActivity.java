@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private TextView tvUsername;
     private ImageView imgAvatar;
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
